@@ -5,7 +5,7 @@ export default function Login() {
   const { register, handleSubmit } = useForm();
 
   function logar(data: any) {
-    const usuario: userDTO = axios
+    const usuario = axios
       .post(`${process.env.API_URL}usuarios/auth`, {
         login: data.login,
         senha: data.senha,
