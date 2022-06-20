@@ -1,7 +1,8 @@
 interface BotaoProps {
   className: any;
-  texto: string;
+  texto: string | number;
   onClick?: () => void;
+  uppercase?: boolean;
 }
 
 export default function Botao(props: BotaoProps) {
@@ -10,7 +11,9 @@ export default function Botao(props: BotaoProps) {
       className={props.className}
       onClick={props.onClick ? props.onClick : undefined}
     >
-      <p className="uppercase">{props.texto}</p>
+      <p className={`${props.uppercase ? "uppercase" : ""} inline-flex`}>
+        {props.texto}
+      </p>
     </div>
   );
 }

@@ -1,34 +1,34 @@
-import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Moment from "react-moment";
 import { SituacaoDTO } from "../../model/situacaoDTO";
-import gifLoading from "/src/public/images/loadingBalls.gif";
-import postado from "/src/public/images/logo_postado.png";
-import emTransferencia from "/src/public/images/logo_emTransferencia.png";
-import unidadeTratamento from "/src/public/images/logo_unidadeTratamento.png";
-import rotaEntrega from "/src/public/images/logo_rotaEntrega.png";
-import entregue from "/src/public/images/logo_entregue.png";
+import api from "../../service/axiosFree";
+import gifLoading from "/public/images/loadingBalls.gif";
+import emTransferencia from "/public/images/logo_emTransferencia.png";
+import entregue from "/public/images/logo_entregue.png";
+import postado from "/public/images/logo_postado.png";
+import rotaEntrega from "/public/images/logo_rotaEntrega.png";
+import unidadeTratamento from "/public/images/logo_unidadeTratamento.png";
 
 export interface SituacaoRastreioProps {
-  codigo: string;
+  codigo: any;
 }
 
 export default function SituacaoRastreio(props: SituacaoRastreioProps) {
-  const [situacao, setSituacao] = useState<SituacaoDTO>();
+  const [situacao, setSituacao] = useState<SituacaoDTO | null>(null);
   const { codigo } = props;
 
-  useEffect(() => {
-    if (codigo !== undefined) {
-      const fetchData = async () => {
-        const result = await axios(`${process.env.API_URL}situacao/${codigo}`);
-        setSituacao(result.data);
-      };
-      fetchData();
+  function pegarSituacao() {
+    if (situacao === null) {
+      api.get(`/situacao/${codigo}`).then((resposta) => {
+        console.log(resposta.data);
+        setSituacao(resposta.data);
+      });
     }
-  }, [codigo]);
+  }
 
   function RenderizarSituacao() {
+    pegarSituacao();
     return (
       <>
         <div className="lg:ml-6 ml-0 mt-6 flex justify-start items-center">

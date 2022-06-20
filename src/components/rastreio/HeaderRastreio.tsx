@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logoEmpresa from "/src/public/images/logo_empresa.png";
+import logoEmpresa from "/public/images/logo_empresa.png";
 
 export default function HeaderRastreio() {
   return (
