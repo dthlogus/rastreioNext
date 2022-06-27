@@ -1,68 +1,95 @@
-<<<<<<< HEAD
-import type { GetServerSideProps, NextPage } from "next";
-=======
-import type { NextPage } from "next";
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
-import Image from "next/image";
+import { Alert, Snackbar } from "@mui/material";
+import Router from "next/router";
+import { setCookie } from "nookies";
+import { useState } from "react";
+import FooterRastreio from "../components/rastreio/FooterRastreio";
+import HeaderRastreio from "../components/rastreio/HeaderRastreio";
+import Botao from "../components/template/Botao";
 import Header from "../components/template/Header";
-import logo from "../../public/images/principal/dhl-logo.svg";
-import Link from "next/link";
-import { Globe, WarningCircle } from "phosphor-react";
+import api from "../service/axiosFree";
 
-const Home: NextPage = () => {
+export default function InicialRastreio() {
+  const [open, setOpen] = useState(false);
+  const [codigoRastreio, setCodigoRastreio] = useState<string>("");
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function validarCodigo() {
+    if (codigoRastreio.length < 1) {
+      handleClick();
+    }
+    api
+      .get(`/pacote/${codigoRastreio}`)
+      .then(() => {
+        setCookie(undefined, "rastreio-pacote", codigoRastreio, {
+          maxAge: 60 * 10 * 1, // 30 min
+          path: "/",
+        });
+        Router.push({
+          pathname: "/rastreio/[codigoRastreio]",
+          query: { codigoRastreio: codigoRastreio },
+        });
+      })
+      .catch(() => {
+        handleClick();
+      });
+  }
+
   return (
     <>
-      <Header title="Principal" />
-      <div className="w-9/12 m-auto h-screen">
-        <div className="bg-gradient-to-r from-yellow-400 to-yellow-100">
-          <div className="flex items-center bg-red-700">
-            <span className="text-white p-6">
-              <WarningCircle size={20} weight="fill" />
-            </span>
-            <Link href="https://www.dhl.com/global-en/home/global-news-alerts.html?region=americas&country=br">
-              <a className="text-white">
-                Visualizar alertas de incidentes que possam afetar os serviços
-                da DHL (1)
-              </a>
-            </Link>
-          </div>
-          <div className="ml-10 mr-10 flex justify-between">
-            <Image src={logo} height={100} width={200} alt="logo" />
-            <div className="flex items-start">
-              <div className="flex items-center mt-5 hover:text-red-700 text-sm mr-6">
-                <span>
-                  <WarningCircle size={20} weight="fill" />
-                </span>
-                <Link href="https://www.dhl.com/global-en/home/global-news-alerts.html?region=americas&country=br">
-                  <a>Alertas(1)</a>
-                </Link>
-              </div>
-              <div className="flex items-center mt-5 hover:text-red-700 text-sm mr-6">
-                <span>
-                  <Globe size={20} />
-                </span>
-                <Link href="https://www.dhl.com/global-en/home/global-news-alerts.html?region=americas&country=br">
-                  <a>Brasil</a>
-                </Link>
-              </div>
-            </div>
-          </div>
+      <Header title="Rastreio" />
+      <HeaderRastreio />
+      <div className="flex justify-center items-center my-12 md:my-32">
+        <div className="w-2/3 lg:w-2/4 xl:w-1/4 2xl:w-1/5 bg-[#ba1e34] flex flex-col items-center justify-center rounded-md">
+          <p className="text-white font-bold uppercase text-center text-xl my-5">
+            Rastreie sua encomenda
+          </p>
+          <p className="text-white text-sm">Informe o código de rastreio</p>
+          <input
+            type="text"
+            className="w-44 md:w-60 py-2 text-center font-semibold text-gray-500 placeholder:text-gray-500 rounded mb-7 focus:outline-none"
+            placeholder="Ex: PC452975BR"
+            value={codigoRastreio}
+            onChange={(event) => setCodigoRastreio(event.target.value)}
+          />
+          <Botao
+            className="cursor-pointer text-white w-44 md:w-60 py-1.5 rounded-md md:rounded-sm text-center shadow-complete mb-10"
+            texto="Procurar"
+            onClick={validarCodigo}
+            uppercase={true}
+          />
         </div>
       </div>
+      <FooterRastreio />
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        key={"bottom" + "right"}
+      >
+        <Alert
+          onClose={handleClose}
+          className="bg-red-800 text-white"
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Código de rastreio não encontrado
+        </Alert>
+      </Snackbar>
     </>
   );
-};
-
-export default Home;
-<<<<<<< HEAD
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    redirect: {
-      destination: "/rastreio",
-      permanent: false,
-    },
-  };
-};
-=======
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
+}

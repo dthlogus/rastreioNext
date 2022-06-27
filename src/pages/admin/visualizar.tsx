@@ -1,23 +1,15 @@
-<<<<<<< HEAD
 import { Listbox, Transition } from "@headlessui/react";
 import { GetServerSideProps } from "next";
 import Router from "next/router";
 import { parseCookies, setCookie } from "nookies";
 import { ArrowsDownUp, Check } from "phosphor-react";
 import { Fragment, useEffect, useState } from "react";
-=======
-import { GetServerSideProps } from "next";
-import Router from "next/router";
-import { parseCookies, setCookie } from "nookies";
-import { useEffect, useState } from "react";
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
 import Sidebar from "../../components/admin/Sidebar";
 import Botao from "../../components/template/Botao";
 import Header from "../../components/template/Header";
 import api from "../../service/apiWithToken";
 import { mask } from "../../service/mask";
 
-<<<<<<< HEAD
 const tamanhos = [
   { value: 10 },
   { value: 20 },
@@ -25,25 +17,15 @@ const tamanhos = [
   { value: 40 },
   { value: 50 },
 ];
-
-=======
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
 export default function Visualizar() {
   const [page, setPage] = useState<any>();
   const [content, setContent] = useState<any[]>();
   const [pagina, setPagina] = useState(0);
-<<<<<<< HEAD
   const [tamanho, setTamanho] = useState(tamanhos[0]);
 
   useEffect(() => {
     api
       .get(`/pacote/?tamanho=${tamanho.value}`)
-=======
-
-  useEffect(() => {
-    api
-      .get("/pacote")
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
       .then((resposta) => {
         setPage(resposta.data);
         setContent(resposta.data.content);
@@ -51,7 +33,6 @@ export default function Visualizar() {
       .catch((erro) => {
         console.log(erro);
       });
-<<<<<<< HEAD
   }, [tamanho.value]);
 
   function listBox() {
@@ -107,9 +88,6 @@ export default function Visualizar() {
       </div>
     );
   }
-=======
-  }, []);
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
 
   function visualizar(codigo: any) {
     setCookie(undefined, "rastreio-pacote", codigo, {
@@ -123,11 +101,7 @@ export default function Visualizar() {
     if (pagina < page?.totalPages && pagina >= 0) {
       setPagina(pagina);
       api
-<<<<<<< HEAD
         .get(`/pacote?page=${pagina}&tamanho=${tamanho.value}`)
-=======
-        .get(`/pacote?page=${pagina}`)
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
         .then((resposta) => {
           setPage(resposta.data);
           setContent(resposta.data.content);
@@ -141,7 +115,6 @@ export default function Visualizar() {
   function renderizarTabela() {
     return content?.map((elemento) => {
       return (
-<<<<<<< HEAD
         <tr
           key={elemento?.codigoRastreio}
           className="bg-white dark:bg-gray-800"
@@ -159,18 +132,6 @@ export default function Visualizar() {
             {elemento?.codigoRastreio}
           </td>
           <td className="px-10 py-4 whitespace-nowrap">
-=======
-        <tr key={elemento?.cliente?.id} className="bg-white dark:bg-gray-800">
-          <th
-            scope="row"
-            className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-          >
-            {elemento?.cliente?.nome}
-          </th>
-          <td className="px-6 py-4">{mask(elemento?.cliente?.cpf)}</td>
-          <td className="px-6 py-4">{elemento?.codigoRastreio}</td>
-          <td className="px-6 py-4">
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
             <Botao
               texto="Visualizar"
               className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
@@ -196,7 +157,6 @@ export default function Visualizar() {
             <div className="text-white text-2xl flex justify-center border-b-2 border-gray-600 py-2 mb-4">
               Visualizar Pacotes
             </div>
-<<<<<<< HEAD
             <table className="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -210,28 +170,12 @@ export default function Visualizar() {
                     Pacote
                   </th>
                   <th scope="col" className="px-8 py-3">
-=======
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Nome
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    CPF
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Pacote
-                  </th>
-                  <th scope="col" className="px-6 py-3">
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
                     Visualizar
                   </th>
                 </tr>
               </thead>
               <tbody>{renderizarTabela()}</tbody>
             </table>
-<<<<<<< HEAD
             <div className="flex justify-between">
               <nav aria-label="navegação">
                 {page?.totalPages > 1 ? (
@@ -264,37 +208,6 @@ export default function Visualizar() {
               </nav>
               <div className="self-end items-center">{listBox()}</div>
             </div>
-=======
-            {page?.totalPages > 1 ? (
-              <nav aria-label="navegação">
-                <ul className="flex justify-center items-center -space-x-px mt-6">
-                  <li>
-                    <Botao
-                      texto="<< Anterior"
-                      className="py-2 px-3 mx-2 rounded leading-tight bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white cursor-pointer"
-                      onClick={() => {
-                        mudarPage(pagina - 1);
-                      }}
-                    />
-                  </li>
-                  <span className="py-2 px-3 mx-2 rounded leading-tight bg-gray-700 border-gray-700 text-white">
-                    {pagina + 1}
-                  </span>
-                  <li>
-                    <Botao
-                      texto="Proximo >>"
-                      className="py-2 px-3 mx-2 rounded leading-tight bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white cursor-pointer"
-                      onClick={() => {
-                        mudarPage(pagina + 1);
-                      }}
-                    />
-                  </li>
-                </ul>
-              </nav>
-            ) : (
-              ""
-            )}
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
           </div>
         </div>
       </div>

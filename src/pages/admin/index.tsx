@@ -1,14 +1,8 @@
 import { Alert, Snackbar } from "@mui/material";
-<<<<<<< HEAD
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { useState } from "react";
-=======
-import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
-import { useEffect, useState } from "react";
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
 import { useForm } from "react-hook-form";
 import Sidebar from "../../components/admin/Sidebar";
 import Botao from "../../components/template/Botao";
@@ -17,11 +11,7 @@ import { PacoteDTO } from "../../model/pacoteDTO";
 import api from "../../service/apiWithToken";
 
 export default function Admin() {
-<<<<<<< HEAD
   const { register, handleSubmit, setValue } = useForm();
-=======
-  const { register, handleSubmit } = useForm();
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
   const [open, setOpen] = useState(false);
   const [criado, setCriado] = useState(false);
   const [pacote, setPacote] = useState<PacoteDTO>();
@@ -29,7 +19,6 @@ export default function Admin() {
     setOpen(true);
   };
 
-<<<<<<< HEAD
   function buscarEndereco(origem: boolean, cep: string) {
     cep = cep.replace(/\D/g, "");
     axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((response) => {
@@ -46,9 +35,6 @@ export default function Admin() {
       }
     });
   }
-
-=======
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
   const handleClose = (
     event: React.SyntheticEvent | Event,
     reason?: string
@@ -120,7 +106,6 @@ export default function Admin() {
             </div>
             <div className="relative z-0 w-full mb-6 group">
               <input
-<<<<<<< HEAD
                 {...register("email")}
                 type="email"
                 name="email"
@@ -156,8 +141,6 @@ export default function Admin() {
             </div>
             <div className="relative z-0 w-full mb-6 group">
               <input
-=======
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
                 {...register("enderecoOrigem")}
                 type="text"
                 name="enderecoOrigem"
@@ -175,7 +158,6 @@ export default function Admin() {
             </div>
             <div className="relative z-0 w-full mb-6 group">
               <input
-<<<<<<< HEAD
                 {...register("complementoOrigem")}
                 type="text"
                 name="complementoOrigem"
@@ -211,8 +193,6 @@ export default function Admin() {
             </div>
             <div className="relative z-0 w-full mb-6 group">
               <input
-=======
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
                 {...register("enderecoDestino")}
                 type="text"
                 name="enderecoDestino"
@@ -228,8 +208,6 @@ export default function Admin() {
                 Endereço de destino
               </label>
             </div>
-<<<<<<< HEAD
-
             <div className="relative z-0 w-full mb-6 group">
               <input
                 {...register("complementoDestino")}
@@ -247,8 +225,6 @@ export default function Admin() {
                 Complemento endereço de destino
               </label>
             </div>
-=======
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
             <Botao
               texto="Criar"
               className="text-white bg-blue-500 w-0 flex px-14 py-1 rounded-md justify-center items-center cursor-pointer"
