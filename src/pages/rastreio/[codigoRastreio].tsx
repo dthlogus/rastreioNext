@@ -45,7 +45,13 @@ export default function CodigoRastreio() {
         <p className="font-bold">Destino:</p>
         <p className="mb-6">{cliente?.enderecoDestino}</p>
         <p className="font-bold">Data da Postagem:</p>
+<<<<<<< HEAD
         <p className="mb-6">{cliente?.dataPostagem}</p>
+=======
+        <p className="mb-6">
+          <Moment format="DD/MM/yyyy">{cliente?.dataPostagem}</Moment>
+        </p>
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
         <p className="font-bold">Status da entrega:</p>
         <p className="mb-8 text-red-600">{cliente?.situacao}</p>
         <SituacaoRastreio codigo={codigoRastreio} />

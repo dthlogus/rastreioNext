@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import type { GetServerSideProps, NextPage } from "next";
+=======
+import type { NextPage } from "next";
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
 import Image from "next/image";
 import Header from "../components/template/Header";
 import logo from "../../public/images/principal/dhl-logo.svg";
@@ -50,6 +54,7 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+<<<<<<< HEAD
 
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
@@ -59,3 +64,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   };
 };
+=======
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b

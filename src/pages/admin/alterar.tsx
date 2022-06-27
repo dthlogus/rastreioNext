@@ -12,21 +12,33 @@ import api from "../../service/apiWithToken";
 export default function Alterar() {
   const { register, handleSubmit } = useForm();
   const [pacote, setPacote] = useState<SituacaoDTO | null>(null);
+<<<<<<< HEAD
   const [postado, setPostado] = useState(false);
+=======
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
   const [entregaFeita, setEntregaFeita] = useState(false);
   const [situacao, setSituacao] = useState("");
   const [codigo, setCodigo] = useState("");
   const [open, setOpen] = useState(false);
 
+<<<<<<< HEAD
   function mudarSituacao(retorno: boolean) {
     api
       .put(`/situacao/${codigo}/?retorno=${retorno}`, pacote)
+=======
+  function mudarSituacao() {
+    api
+      .put(`/situacao/${codigo}`, pacote)
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
       .then(() => {
         setPacote(null);
         setCodigo("");
         setSituacao("");
+<<<<<<< HEAD
         setPostado(false);
         setEntregaFeita(false);
+=======
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
       })
       .catch((erro) => {
         console.log(erro);
@@ -34,6 +46,7 @@ export default function Alterar() {
       });
   }
 
+<<<<<<< HEAD
   function voltarSituacao() {
     if (pacote?.entregue === true) {
       pacote.entregue = false;
@@ -79,6 +92,8 @@ export default function Alterar() {
     }
   }
 
+=======
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
   function buscarPacote(data: any) {
     api
       .get(`/situacao/${data.pacote}`)
@@ -95,19 +110,35 @@ export default function Alterar() {
     if (pacote !== null) {
       if (pacote?.transferencia === false) {
         setSituacao("Postado");
+<<<<<<< HEAD
         setPostado(true);
+=======
+        pacote.transferencia = true;
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
         return;
       }
       if (pacote?.tratamento === false) {
         setSituacao("Em transferencia");
+<<<<<<< HEAD
+=======
+        pacote.tratamento = true;
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
         return;
       }
       if (pacote?.rotaEntrega === false) {
         setSituacao("Unidade de tratamento");
+<<<<<<< HEAD
+=======
+        pacote.rotaEntrega = true;
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
         return;
       }
       if (pacote?.entregue === false) {
         setSituacao("Rota de entrega");
+<<<<<<< HEAD
+=======
+        pacote.entregue = true;
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
         return;
       }
       setSituacao("Entregue");
@@ -176,6 +207,7 @@ export default function Alterar() {
             ""
           )}
         </div>
+<<<<<<< HEAD
         <div className="flex justify-around">
           {entregaFeita ? (
             ""
@@ -208,6 +240,22 @@ export default function Alterar() {
             </div>
           )}
         </div>
+=======
+        {entregaFeita ? (
+          ""
+        ) : (
+          <div className="flex mt-5 justify-between">
+            <Botao
+              texto="Mudar Situação"
+              className="text-white mr-6 bg-blue-500 flex px-14 py-2 rounded-md items-center cursor-pointer"
+              onClick={() => {
+                mudarSituacao();
+              }}
+              uppercase={true}
+            />
+          </div>
+        )}
+>>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
       </form>
     );
   }
