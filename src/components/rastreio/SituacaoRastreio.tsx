@@ -21,10 +21,6 @@ export default function SituacaoRastreio(props: SituacaoRastreioProps) {
   function pegarSituacao() {
     if (situacao === null) {
       api.get(`/situacao/${codigo}`).then((resposta) => {
-<<<<<<< HEAD
-=======
-        console.log(resposta.data);
->>>>>>> da4f1068b3dfbb833818bbf8a5266cb04728dd7b
         setSituacao(resposta.data);
       });
     }
