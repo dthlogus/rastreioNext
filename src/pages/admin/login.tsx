@@ -36,6 +36,10 @@ export default function Login() {
           maxAge: 60 * 60 * 1, // 1 hora
           path: "/",
         });
+        setCookie(undefined, "rastreio-permissao", response.data.perfil, {
+          maxAge: 60 * 60 * 1, // 1 hora
+          path: "/",
+        });
         router.push("/admin");
       })
       .catch(() => {

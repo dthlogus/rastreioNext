@@ -1,13 +1,15 @@
 import Link from "next/link";
 import Router from "next/router";
-import { destroyCookie } from "nookies";
-import { ArrowsLeftRight, Eye, List, Package, SignOut } from "phosphor-react";
+import { destroyCookie, parseCookies } from "nookies";
+import { ArrowsLeftRight, Eye, List, Package, User } from "phosphor-react";
 import { useEffect, useState } from "react";
 import Botao from "../template/Botao";
 
 export default function Sidebar() {
   const [desativarMenu, setDesativarMenus] = useState(false);
   const [ativo, setAtivo] = useState("");
+  const [permissao, setPermissao] = useState("");
+
   function logout() {
     destroyCookie(null, "rastreio-token", { path: "/" });
     Router.push("/admin/login");
@@ -29,7 +31,18 @@ export default function Sidebar() {
       case "/admin/alterar":
         setAtivo("alterar");
         break;
+      case "/admin/visualizarUsuarios":
+        setAtivo("usuarios");
+        break;
+      case "/admin/criarUsuario":
+        setAtivo("usuarios");
+        break;
     }
+  }, []);
+
+  useEffect(() => {
+    const { ["rastreio-permissao"]: permissao } = parseCookies();
+    setPermissao(permissao);
   }, []);
 
   return (
@@ -90,6 +103,23 @@ export default function Sidebar() {
                 </a>
               </Link>
             </li>
+            {permissao === "USER" ? (
+              ""
+            ) : (
+              <li className="relative mt-5">
+                <Link href="/admin/visualizarUsuarios">
+                  <a
+                    className={ativo === "usuarios" ? classAtivo : classInativo}
+                    href="#!"
+                    data-mdb-ripple="true"
+                    data-mdb-ripple-color="dark"
+                  >
+                    <User size={20} />
+                    <p className="ml-2">Usuarios</p>
+                  </a>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         <div>
