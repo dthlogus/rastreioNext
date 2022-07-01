@@ -15,9 +15,11 @@ export default function Alterar() {
   const [postado, setPostado] = useState(false);
   const [entregaFeita, setEntregaFeita] = useState(false);
   const [situacao, setSituacao] = useState("");
-  const [codigo, setCodigo] = useState("");
+  const [codigo, setCodigo] = useState<string>("");
   const [open, setOpen] = useState(false);
   function mudarSituacao(retorno: boolean) {
+    setCodigo(codigo.replace(/( )+/g, " "));
+
     api
       .put(`/situacao/${codigo}/?retorno=${retorno}`, pacote)
       .then(() => {

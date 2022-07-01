@@ -31,6 +31,8 @@ export default function InicialRastreio() {
     if (codigoRastreio.length < 1) {
       handleClick();
     }
+    setCodigoRastreio(codigoRastreio.replace(/( )+/g, " "));
+
     api
       .get(`/pacote/${codigoRastreio}`)
       .then(() => {
